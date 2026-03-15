@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B&E Web Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --white: #ffffff;
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+      --border: #e8e5e0;
+      --accent: #2a5cff;
+      --sans: 'DM Sans', sans-serif;
+      --serif: 'DM Serif Display', serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      position: sticky; top: 0; z-index: 10;
+    }
+
+    .logo {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-btn {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .nav-btn:hover { opacity: 0.8; }
+
+    
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.8rem 1.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .hero-btn:hover { opacity: 0.85; }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 0 2rem; }
+
+    
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .intro-text {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .step-num {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .step p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    
+    .services-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .service-item {
+      padding: 1.75rem 2rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .service-item:nth-child(even) { border-right: none; }
+    .service-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .service-item h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .service-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .pricing-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      background: var(--white);
+    }
+
+    .pricing-card.featured { border-color: var(--accent); }
+
+    .plan-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .plan-price {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .plan-features li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .plan-features li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #ccc;
+    }
+
+    
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-intro h2 { margin-bottom: 0.75rem; }
+
+    .contact-intro p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      outline: none;
+      transition: border-color 0.15s;
+      width: 100%;
+    }
+
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    input::placeholder, textarea::placeholder { color: #bbb; }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .form-submit {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--white);
+      background: var(--ink);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: opacity 0.15s;
+    }
+
+    .form-submit:hover { opacity: 0.8; }
+
+    
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p { font-size: 0.82rem; color: var(--muted); }
+
+    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .services-list { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .service-item:last-child { border-bottom: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">B&amp;E Web Services</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-btn">Get a free review</a>
+  </nav>
+
+  <div class="hero">
+    <h1>Your business deserves a better website</h1>
+    <p>We rebuild outdated websites for small businesses — modern, fast, and handed off to you seamlessly.</p>
+    <a href="#contact" class="hero-btn">Get a free website review</a>
+  </div>
+
+  <hr />
+
+  <section id="process">
+    <div class="section-label">How it works</div>
+    <h2>Simple process, clear results</h2>
+    <p class="intro-text">No confusing tech, no surprise fees. Here's what working with us looks like.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Free audit</h3>
+        <p>Send us your URL. We review your site and tell you exactly what needs fixing.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Flat-rate quote</h3>
+        <p>You get a clear upfront price. No hourly billing, no hidden fees.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>We build it</h3>
+        <p>You approve a mockup, then we build it out. Revisions are included.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Smooth handoff</h3>
+        <p>We migrate everything to your existing domain. You own all the files.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section id="services">
+    <div class="section-label">Services</div>
+    <h2>What we offer</h2>
+    <p class="intro-text">Everything you need to go from an embarrassing website to one you're proud to share.</p>
+    <div class="services-list">
+      <div class="service-item">
+        <h3>Website Redesign</h3>
+        <p>Full visual overhaul of your existing site — new look, same domain, zero downtime.</p>
+      </div>
+      <div class="service-item">
+        <h3>New Website Builds</h3>
+        <p>Starting from scratch? We design and develop your full site from the ground up.</p>
+      </div>
+      <div class="service-item">
+        <h3>Speed & Performance</h3>
+        <p>Slow sites lose customers. We optimize load times and improve your Google rankings.</p>
+      </div>
+      <div class="service-item">
+        <h3>Mobile Optimization</h3>
+        <p>We make sure your site looks and works perfectly on every screen size.</p>
+      </div>
+      <div class="service-item">
+        <h3>Content Migration</h3>
+        <p>All your existing pages, images, and content moved over cleanly.</p>
+      </div>
+      <div class="service-item">
+        <h3>Ongoing Maintenance</h3>
+        <p>Optional monthly plans to keep your site updated, secure, and backed up.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section id="pricing">
+    <div class="section-label">Pricing</div>
+    <h2>Straightforward pricing</h2>
+    <p class="intro-text">You know the price before we start. No surprises.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$799</div>
+        <div class="plan-note">One-time &middot; up to 5 pages</div>
+        <ul class="plan-features">
+          <li>Custom design</li>
+          <li>Mobile responsive</li>
+          <li>Contact form</li>
+          <li>Domain migration</li>
+          <li>1 revision round</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="plan-name">Business</div>
+        <div class="plan-price">$1,499</div>
+        <div class="plan-note">One-time &middot; up to 10 pages</div>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Speed optimization</li>
+          <li>Basic SEO setup</li>
+          <li>Google Analytics</li>
+          <li>3 revision rounds</li>
+          <li>2 weeks post-launch support</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Custom</div>
+        <div class="plan-price" style="font-size:1.5rem; padding-top: 0.35rem;">Let's talk</div>
+        <div class="plan-note">E-commerce &amp; complex builds</div>
+        <ul class="plan-features">
+          <li>Online store</li>
+          <li>Booking &amp; scheduling</li>
+          <li>Custom functionality</li>
+          <li>CMS integration</li>
+          <li>Ongoing maintenance</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section id="contact">
+    <div class="contact-wrap">
+      <div class="contact-intro">
+        <div class="section-label">Contact</div>
+        <h2>Get a free website review</h2>
+        <p>Share your current site and a bit about your business. We'll take a look and send you an honest assessment — no obligation.</p>
+        <p style="margin-top:1rem; font-size:0.85rem; color:#aaa;">We typically respond within one business day.</p>
+      </div>
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" placeholder="Jane Smith" />
+          </div>
+          <div class="form-group">
+            <label for="business">Business name</label>
+            <input type="text" id="business" placeholder="Acme Co." />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="jane@yourcompany.com" />
+        </div>
+        <div class="form-group">
+          <label for="website">Current website URL</label>
+          <input type="url" id="website" placeholder="https://yourwebsite.com" />
+        </div>
+        <div class="form-group">
+          <label for="message">Anything else we should know?</label>
+          <textarea id="message" placeholder="What's not working about your current site?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send &rarr;</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 B&amp;E Web Services</p>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
